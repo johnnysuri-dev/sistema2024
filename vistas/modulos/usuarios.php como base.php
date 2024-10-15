@@ -165,7 +165,7 @@
               <div class="panel">SUBIR FOTO</div>
               <input type="file" class="nuevaFoto" name="nuevaFoto">
               <p class="help-block">Peso máximo de la foto 2MB</p>
-              <img src="vistas/img/usuarios/iconuser.jpg" class="img-thumbnail previsualizar" width="100px">
+              <img src="vistas/img/usuarios/default/anonymous.png" class="img-thumbnail previsualizar" width="100px">
             </div>
           </div>
         </div>
@@ -175,11 +175,7 @@
           <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Salir</button>
           <button type="submit" class="btn btn-primary">Guardar usuario</button>
         </div>
-      <?php 
-        $crearUsuario = new ControladorUsuarios();
-        $crearUsuario -> ctrCrearUsuario();
-       ?>
-
+      
       </form>
 
     </div>

@@ -24,6 +24,9 @@ session_start();
        folder instead of downloading all of them to reduce the load. -->
   <link rel="stylesheet" href="vistas/dist/css/skins/_all-skins.min.css">
 
+    <!-- DataTables -->
+  <link rel="stylesheet" href="vistas/bower_components/datatables.net-bs/css/dataTables.bootstrap.min.css">
+
 <script src="vistas/bower_components/jquery/dist/jquery.min.js"></script>
 <!-- Bootstrap 3.3.7 -->
 <script src="vistas/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -33,6 +36,11 @@ session_start();
 <script src="vistas/bower_components/fastclick/lib/fastclick.js"></script>
 <!-- AdminLTE App -->
 <script src="vistas/dist/js/adminlte.min.js"></script>
+<!-- DataTables -->
+<script src="vistas/bower_components/datatables.net/js/jquery.dataTables.min.js"></script>
+<script src="vistas/bower_components/datatables.net-bs/js/dataTables.bootstrap.min.js"></script>
+<!-- SWEETALERT2 -->
+<script src="vistas/plugins/swweetalert2/sweetalert2.1.all.js"></script>
 
 </head>
 <body class="hold-transition skin-blue sidebar-mini">
