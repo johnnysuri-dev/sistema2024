@@ -20,10 +20,19 @@
                     <ul class="nav navbar-nav">
                       <!-- Messages: style can be found in dropdown.less-->
                       <li class="dropdown user user-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            <img src="vistas/img/user2-160x160.jpg" class="user-image" alt="User Image">
-                          <span class="hidden-xs">Alexander Piere</span>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" >
+                          
+                          <?php 
+                            if ($_SESSION["foto"]!= "") {
+                              echo '<img src="'.$_SESSION["foto"].'" class="user-image">';
+                            }else{
+                              echo '<img src="vistas/usuarios/default/base.jpg" class="user-image">';
+                            }
+                           ?>
+                           <span class="hidden-xs"> <?php echo $_SESSION["nombre"]; ?></span>
                         </a>
+
+
                             <ul class="dropdown-menu">
                               <li class="user-body">
                                 <div class="pull-right">

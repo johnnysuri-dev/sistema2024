@@ -48,12 +48,19 @@
              </tr>
             </thead>
             <tbody>
-              <tr>
+              <?php 
+
+
+        $item = null;
+        $valor = null;
+        $usuarios = ControladorUsuarios::ctrMostrarUsuarios($item, $valor);
+        foreach ($usuarios as $key => $value) {
+         echo '  <tr>
               <td>1</td>
-               <td>suri</td>
-               <td>admin</td>
+               <td>'.$value["nombre"].'</td>
+               <td>'.$value["usuario"].'</td>
                <td><img src="vistas/img/usuarios/iconuser.jpg" class="img-thumbnail" width="40px"></td>
-               <td>Admin</td>
+               <td>'.$value["perfil"].'</td>
                <td>
                  <button class="btn btn-success btn-xs">Activado</button>
                </td>
@@ -63,42 +70,11 @@
                   <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
                   <button class="btn btn-danger"><i class="fa fa-times"></i></button>
                  </div>
-               </td>
-              </tr>
-             <tr>
-              <td>2</td>
-               <td>suri</td>
-               <td>admin</td>
-               <td><img src="vistas/img/usuarios/iconuser.jpg" class="img-thumbnail" width="40px"></td>
-               <td>Admin</td>
-               <td>
-                 <button class="btn btn-success btn-xs">Activado</button>
-               </td>
-               <td>12/12/12</td>
-               <td>
-                 <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                 </div>
-               </td>
-              </tr>
-              <tr>
-              <td>3</td>
-               <td>suri</td>
-               <td>admin</td>
-               <td><img src="vistas/img/usuarios/iconuser.jpg" class="img-thumbnail" width="40px"></td>
-               <td>Admin</td>
-               <td>
-                 <button class="btn btn-success btn-xs">Activado</button>
-               </td>
-               <td>12/12/12</td>
-               <td>
-                 <div class="btn-group">
-                  <button class="btn btn-warning"><i class="fa fa-pencil"></i></button>
-                  <button class="btn btn-danger"><i class="fa fa-times"></i></button>
-                 </div>
-               </td>
-              </tr>
+               </td>         
+              </tr>';
+}
+               ?>
+             
             </tbody>
            </table>
 
@@ -165,7 +141,7 @@
               <div class="panel">SUBIR FOTO</div>
               <input type="file" class="nuevaFoto" name="nuevaFoto">
               <p class="help-block">Peso máximo de la foto 2MB</p>
-              <img src="vistas/img/usuarios/iconuser.jpg" class="img-thumbnail previsualizar" width="100px">
+              <img src="vistas/img/usuarios/default/base.jpg" class="img-thumbnail previsualizar" width="100px">
             </div>
           </div>
         </div>

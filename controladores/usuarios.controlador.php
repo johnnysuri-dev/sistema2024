@@ -11,13 +11,23 @@ static public	function  crtIngresoUsuario()
 		if (isset($_POST["ingUsuario"])) {
 			if (preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingUsuario"])&& 
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["ingPassword"])) {
+
+				// codigo para incriptar
+				$encriptar = crypt($_POST["ingPassword"],'$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+
 				$tabla="usuarios";
 				$item="usuario";
 				$valor=$_POST['ingUsuario'];
 				// instancias 
 				$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla,$item,$valor);
-				if ($respuesta["usuario"]==$_POST['ingUsuario']&&$respuesta["password"]==$_POST["ingPassword"]) {
+				if ($respuesta["usuario"]==$_POST['ingUsuario']&&$respuesta["password"]== $encriptar) {
 					$_SESSION["iniciarSesion"] ="ok";
+					// agregamos los atributos- columnas
+					$_SESSION["id"] =$respuesta["id"];
+					$_SESSION["nombre"] =$respuesta["nombre"];
+					$_SESSION["usuario"] =$respuesta["usuario"];
+					$_SESSION["foto"] = $respuesta["foto"];
+					$_SESSION["perfil"] = $respuesta["perfil"];
 
 					echo '<script>
 						window.location = "inicio";
@@ -34,12 +44,75 @@ static public	function  crtIngresoUsuario()
 			if (preg_match('/^[a-zA-Z0-9ñÑáéíóúÁÉÍÓÚ ]+$/', $_POST["nuevoNombre"])&& 
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoUsuario"])&& 
 				preg_match('/^[a-zA-Z0-9]+$/', $_POST["nuevoPassword"])) {
+// validacion la informacion respecto a la fotografia
+				 $ruta = "";
+
+                if(isset($_FILES["nuevaFoto"]["tmp_name"])){
+
+                    list($ancho, $alto) = getimagesize($_FILES["nuevaFoto"]["tmp_name"]);
+
+                    $nuevoAncho = 500;
+                    $nuevoAlto = 500;
+
+                    /*=============================================
+                    CREAMOS EL DIRECTORIO DONDE VAMOS A GUARDAR LA FOTO DEL USUARIO
+                    =============================================*/
+
+                    $directorio = "vistas/img/usuarios/".$_POST["nuevoUsuario"];
+
+                    mkdir($directorio, 0755);
+
+                    /*=============================================
+                    DE ACUERDO AL TIPO DE IMAGEN APLICAMOS LAS FUNCIONES POR DEFECTO DE PHP
+                    =============================================*/
+
+                    if($_FILES["nuevaFoto"]["type"] == "image/jpeg"){
+
+                   /*============== GUARDAMOS LA IMAGEN EN EL DIRECTORIO==========*/
+                        $aleatorio = mt_rand(100,999);
+
+                        $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".jpg";
+
+                        $origen = imagecreatefromjpeg($_FILES["nuevaFoto"]["tmp_name"]);                        
+
+                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+                        imagejpeg($destino, $ruta);
+
+                    }
+
+                    if($_FILES["nuevaFoto"]["type"] == "image/png"){
+
+                        /*=============================================
+                        GUARDAMOS LA IMAGEN EN EL DIRECTORIO
+                        =============================================*/
+
+                        $aleatorio = mt_rand(100,999);
+
+                        $ruta = "vistas/img/usuarios/".$_POST["nuevoUsuario"]."/".$aleatorio.".png";
+
+                        $origen = imagecreatefrompng($_FILES["nuevaFoto"]["tmp_name"]);                    
+
+                        $destino = imagecreatetruecolor($nuevoAncho, $nuevoAlto);
+
+                        imagecopyresized($destino, $origen, 0, 0, 0, 0, $nuevoAncho, $nuevoAlto, $ancho, $alto);
+
+                        imagepng($destino, $ruta);
+                    }
+                }
+
+
+$encriptar = crypt($_POST["nuevoPassword"],'$2a$07$asxx54ahjppf45sd87a5a4dDDGsystemdev$');
+
 				$tabla="usuarios";
 			
 				$datos=array("nombre"=>$_POST["nuevoNombre"],
 								"usuario"=>$_POST["nuevoUsuario"],
-								"password"=>$_POST["nuevoPassword"],
-								"perfil"=>$_POST["nuevoPerfil"]);
+								"password"=>$encriptar,
+								"perfil"=>$_POST["nuevoPerfil"],
+								"foto"=>$ruta);
 				// instancias 
 				$respuesta = ModeloUsuarios::mdlIngresarUsuario($tabla,$datos);
 				if ($respuesta== "ok") {
@@ -91,6 +164,13 @@ static public	function  crtIngresoUsuario()
 					</script>';
 			}
 		}
+
+ }
+
+ static public function ctrMostrarUsuarios($item,$valor){
+		$tabla="usuarios";
+		$respuesta = ModeloUsuarios::MdlMostrarUsuarios($tabla, $item, $valor);
+		return $respuesta;
 
  }
 
