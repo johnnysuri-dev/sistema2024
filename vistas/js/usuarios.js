@@ -70,3 +70,30 @@ $(document).on("click", ".btnEditarUsuario", function(){
         }
     });
 })
+
+/*=============================================
+ELIMINAR USUARIO
+=============================================*/
+$(document).on("click", ".btnEliminarUsuario", function(){
+  var idUsuario = $(this).attr("idUsuario"); //trae en su atributo id usuario por el boton
+  var fotoUsuario = $(this).attr("fotoUsuario"); // capaturamos lo que trae por el boton`
+  var usuario = $(this).attr("usuario");
+
+  swal({
+    title: '¿Está seguro de borrar el usuario?',
+    text: "¡Si no lo está puede cancelar la accíón!",
+    type: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      cancelButtonText: 'Cancelar',
+      confirmButtonText: 'Si, borrar usuario!'
+  }).then(function(result){
+    if(result.value){
+
+// redirecciona la pagina
+      window.location = "index.php?ruta=usuarios&idUsuario="+idUsuario+"&usuario="+usuario+"&fotoUsuario="+fotoUsuario;
+
+    }
+  })
+})

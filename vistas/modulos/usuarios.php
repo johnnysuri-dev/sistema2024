@@ -271,3 +271,9 @@
   </div>
 </div>
 
+   <?php
+
+          $editarUsuario = new ControladorUsuarios();
+          $editarUsuario -> ctrBorrarUsuario();
+
+        ?> 
